@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if ticker %}
+	<h2>{{ ticker }}</h2>	
+{% endif %}
+
+<br/>
+
+{% if api %}
+	{% if api == "Error..." or api.0 == None %}
+		<h2>There was a problem with your ticker symbol, please try again</h2>
+	{% else %}
+	 	<h1>{{ api.0.companyName }} </h1></br>
+		 Price $: {{ api.0.latestPrice }}</br>
+		 previousClose: {{ api.0.previousClose }}</br>
+		 marketCap $: {{ api.0.marketCap }}</br>
+		 ytdChange: {{ api.0.ytdChange }}</br>
+		 week52High: {{ api.0.week52High }}</br>
+		 week52Low: {{ api.0.week52Low }}</br>
+	{% endif %}
+
+{% endif %}
+
+ 
+
+{% endblock %}

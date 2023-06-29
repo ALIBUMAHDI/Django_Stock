@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br/>
+<h1>Add Stock..</h1>
+<br/>
+
+<form class="d-flex" action=" {% url 'add_stock' %}" method="POST">
+    {% csrf_token %}
+    <input class="form-control me-2" type="search" placeholder="Add To Portfolio" aria-label="Search"
+    name="ticker">
+    <button class="btn btn-outline-success" type="submit">Add_Stock</button>
+</form>
+</br></br>
+
+<table class="table table-bordered table-hover table-striped">
+  <thead>
+    <tr class="table-dark">
+      <th scope="col">Company Name</th>
+      <th scope="col">Stock Price</th>
+      <th scope="col">Previous Close</th>
+      <th scope="col">Market Cap</th>
+      <th scope="col">YTD Change</th>
+      <th scope="col">52WK High</th>
+      <th scope="col">52WK Low</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% if ticker %}
+	  	{% for item in apiArr %}
+	    <tr>
+	      <td>{{ item.companyName }}</td>
+	      <td>{{ item.latestPrice }}</td>
+	      <td>{{ item.previousClose }}</td>
+
+
+	      <td>{{ item.marketCap}}</td>
+
+	      <td>{{ item.ytdChange }}</td>
+	      <td>{{ item.week52High }}</td>
+	      <td>{{ item.week52Low }}</td>
+	      <td><a href="{% url 'delete' item.id %}">Delete Stock</a></td>
+	    </tr>
+	    <tr>
+		{% endfor %}
+	{% endif %}
+  </tbody>
+</table>
+    
+{% endblock %}
